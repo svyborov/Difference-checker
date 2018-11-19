@@ -2,7 +2,7 @@
 const gendiff = require('commander');
 
 gendiff
-  .version('0.1.0')
+  .version('0.0.15')
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'Output format')
   .arguments('<firstConfig> <secondConfig>')
