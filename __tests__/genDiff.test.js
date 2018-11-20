@@ -1,7 +1,10 @@
-const genDiff = require('../src/genDiff');
+import fs from 'fs';
+import genDiff from '../src/genDiff';
 
-test('firstTest', () => {
-  expect(genDiff('/home/troyanec/projects/gendiff/__tests__/before.json', '/home/troyanec/projects/gendiff/__tests__/after.json')).toBe('{ host: hexlet.io + timeout: 20 - timeout: 50 - proxy: 123.234.53.22 + verbose: true - follow: false}');
+test('relativePath', () => {
+  expect(genDiff('./__tests__/__fixtures__/before.json', './__tests__/__fixtures__/after.json')).toBe(fs.readFileSync('./__tests__/__fixtures__/diff.json').toString());
 });
 
-//   expect(genDiff('.__fixtures__/before', '.__fixtures__/after')).toBe();
+test('absolutePath', () => {
+  expect(genDiff('/home/troyanec/projects/gendiff/__tests__/__fixtures__/before.json', '/home/troyanec/projects/gendiff/__tests__/__fixtures__/after.json')).toBe(fs.readFileSync('/home/troyanec/projects/gendiff/__tests__/__fixtures__/diff.json').toString());
+});

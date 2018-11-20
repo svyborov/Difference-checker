@@ -1,53 +1,29 @@
-const fs = require('fs');
-const _ = require('lodash');
+import fs from 'fs';
+import _ from 'lodash';
 
 const genDiff = (pathToFile1, pathToFile2) => {
-  console.log(pathToFile1);
-  console.log(pathToFile2);
-  const jsonFromFile1 = fs.readFileSync(pathToFile1).toString();
-  const jsonFromFile2 = fs.readFileSync(pathToFile2).toString();
-  console.log(jsonFromFile1);
-  console.log(jsonFromFile2);
-  const parseJson2 = JSON.parse(jsonFromFile2);
-  console.log('ПАРСЕ ДЖЕЙСОН 2', parseJson2);
-  // console.log('КЛЮЧИ ВТОРОГО ФАЙЛА', Object.keys(jsonFromFile2));
-  // console.log(Object.keys(JSON.parse(jsonFromFile2)));
-  const result = [];
-  JSON.parse(jsonFromFile1, (key, value) => {
-    console.log('КЛЮЧ', key);
-    console.log('ЗНАЧЕНИЕ', value);
-    if (_.has(parseJson2, key)) {
-      if (parseJson2[key] !== value) {
-        result.push(`- ${key}:${value}`);
-        result.push(`+ ${key}:${parseJson2[key]}`);
-      } else {
-        result.push(`  ${key}:${value}`);
+  const parseJsonFromFile1 = JSON.parse(fs.readFileSync(pathToFile1).toString());
+  const parseJsonFromFile2 = JSON.parse(fs.readFileSync(pathToFile2).toString());
+  const keysFromJsons = Object.keys(parseJsonFromFile1).concat(Object.keys(parseJsonFromFile2));
+  const keysSet = Array.from(new Set(keysFromJsons));
+  const result = keysSet.reduce((acc, key) => {
+    if (_.has(parseJsonFromFile1, key)) {
+      if (_.has(parseJsonFromFile2, key)) {
+        if (parseJsonFromFile1[key] === parseJsonFromFile2[key]) {
+          acc.push(`  ${key}: ${parseJsonFromFile1[key]}`);
+          return acc;
+        }
+        acc.push(`- ${key}: ${parseJsonFromFile1[key]}`);
+        acc.push(`+ ${key}: ${parseJsonFromFile2[key]}`);
+        return acc;
       }
-    } else {
-      result.push(`- ${key}:${value}`);
+      acc.push(`- ${key}: ${parseJsonFromFile1[key]}`);
+      return acc;
     }
-  });
+    acc.push(`+ ${key}: ${parseJsonFromFile2[key]}`);
+    return acc;
+  }, []);
   return `{\n${result.join('\n')}\n}`;
 };
 
-module.exports = genDiff;
-
-
-/*  const result = [];
-  JSON.parse(jsonFromFile1, (key, value) => {
-    console.log('КЛЮЧ', key);
-    console.log('ЗНАЧЕНИЕ', value);
-    if (_.has(parseJson2, key)) {
-      if (parseJson2[key] !== value) {
-        result.push(`- ${key}:${value}`);
-        result.push(`+${key}:${parseJson2[key]}`);
-      } else {
-        result.push(`${key}:${value}`);
-      }
-    } else {
-      result.push(`- ${key}:${value}`);
-    }
-  });
-  return `{\n${result.join('\n')}\n}`;
-};
-*/
+export default genDiff;

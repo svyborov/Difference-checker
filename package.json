@@ -1,6 +1,6 @@
 {
   "name": "gendiff_vsa123",
-  "version": "0.0.15",
+  "version": "0.0.20",
   "description": "The package allows you to compare 2 files.",
   "main": "dist/bin/gendiff.js",
   "bin": {
@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "test-watch": "jest --watch",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build"
   },
