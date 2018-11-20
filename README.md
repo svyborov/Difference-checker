@@ -5,3 +5,6 @@
 
 # Установка и опции
 <a href="https://asciinema.org/a/4cBK4RTXnXnayjZBJPa9P07w0" target="_blank"><img src="https://asciinema.org/a/4cBK4RTXnXnayjZBJPa9P07w0.svg" /></a>
+
+# Установка и сравнение файлов
+<a href="https://asciinema.org/a/DG7eRpvSvahK1nMhtbV958e9s" target="_blank"><img src="https://asciinema.org/a/DG7eRpvSvahK1nMhtbV958e9s.svg" /></a>
