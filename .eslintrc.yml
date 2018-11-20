@@ -4,7 +4,7 @@ extends:
 
 env:
   node: true
-  jest/globals: true
+  jest: true
 
 rules:
   no-console: 0
