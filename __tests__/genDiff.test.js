@@ -1,6 +1,7 @@
 import fs from 'fs';
-import genDiff from '../src/genDiff';
 import { resolve } from 'path';
+import genDiff from '../src/genDiff';
+
 
 const path1 = './__tests__/__fixtures__/before.json';
 const path2 = './__tests__/__fixtures__/after.json';
