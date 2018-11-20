@@ -1,10 +1,13 @@
 import fs from 'fs';
 import genDiff from '../src/genDiff';
+import { resolve } from 'path';
 
+const path1 = './__tests__/__fixtures__/before.json';
+const path2 = './__tests__/__fixtures__/after.json';
 test('relativePath', () => {
-  expect(genDiff('./__tests__/__fixtures__/before.json', './__tests__/__fixtures__/after.json')).toBe(fs.readFileSync('./__tests__/__fixtures__/diff.json').toString());
+  expect(genDiff(path1, path2)).toBe(fs.readFileSync('./__tests__/__fixtures__/diff.json').toString());
 });
 
 test('absolutePath', () => {
-  expect(genDiff('/home/troyanec/projects/gendiff/__tests__/__fixtures__/before.json', '/home/troyanec/projects/gendiff/__tests__/__fixtures__/after.json')).toBe(fs.readFileSync('/home/troyanec/projects/gendiff/__tests__/__fixtures__/diff.json').toString());
+  expect(genDiff(resolve(path1), resolve(path2))).toBe(fs.readFileSync('/home/troyanec/projects/gendiff/__tests__/__fixtures__/diff.json').toString());
 });
