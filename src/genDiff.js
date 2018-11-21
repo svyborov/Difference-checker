@@ -1,24 +1,14 @@
-import fs from 'fs';
-import _ from 'lodash';
+import path from 'path';
+import { yamlParser, jsonParser } from './parsers';
 
 const genDiff = (pathToFile1, pathToFile2) => {
-  const parseJsonFromFile1 = JSON.parse(fs.readFileSync(pathToFile1).toString());
-  const parseJsonFromFile2 = JSON.parse(fs.readFileSync(pathToFile2).toString());
-  const keysFromJsons = Object.keys(parseJsonFromFile1).concat(Object.keys(parseJsonFromFile2));
-  const uniqKeys = _.uniq(keysFromJsons);
-  const result = uniqKeys.reduce((acc, key) => {
-    if (_.has(parseJsonFromFile1, key)) {
-      if (_.has(parseJsonFromFile2, key)) {
-        if (parseJsonFromFile1[key] === parseJsonFromFile2[key]) {
-          return [...acc, `  ${key}: ${parseJsonFromFile1[key]}`];
-        }
-        return [...acc, `- ${key}: ${parseJsonFromFile1[key]}`, `+ ${key}: ${parseJsonFromFile2[key]}`];
-      }
-      return [...acc, `- ${key}: ${parseJsonFromFile1[key]}`];
-    }
-    return [...acc, `+ ${key}: ${parseJsonFromFile2[key]}`];
-  }, []);
-  return `{\n${result.join('\n')}\n}`;
+  const extnameFile = path.extname(pathToFile1);
+  // const extnameFile2 = path.extname(pathToFile2);
+  // Создаем нужный объект и передаем ему всю хуйню. После этого вовзараем резльтат
+  if (extnameFile === '.json') {
+    return jsonParser(pathToFile1, pathToFile2);
+  }
+  return yamlParser(pathToFile1, pathToFile2);
 };
 
 export default genDiff;
