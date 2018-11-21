@@ -22,3 +22,14 @@ test('yaml', () => {
   const toBeNewValue = fs.readFileSync('./__tests__/__fixtures__/yaml/newDiff.yaml').toString();
   expect(genDiff(pathNewBeforeYaml, pathNewafterYaml)).toBe(toBeNewValue);
 });
+
+test('ini', () => {
+  const pathBeforeIni = './__tests__/__fixtures__/ini/before.ini';
+  const pathAeforeIni = './__tests__/__fixtures__/ini/after.ini';
+  const toBeValue = fs.readFileSync('./__tests__/__fixtures__/ini/diff.ini').toString();
+  expect(genDiff(pathBeforeIni, pathAeforeIni)).toBe(toBeValue);
+  const pathNewBeforeIni = './__tests__/__fixtures__/ini/newBefore.ini';
+  const pathNewafterIni = './__tests__/__fixtures__/ini/newAfter.ini';
+  const toBeNewValue = fs.readFileSync('./__tests__/__fixtures__/ini/newDiff.ini').toString();
+  expect(genDiff(pathNewBeforeIni, pathNewafterIni)).toBe(toBeNewValue);
+});

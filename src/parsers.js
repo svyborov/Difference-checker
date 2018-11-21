@@ -1,6 +1,7 @@
 import fs from 'fs';
 import _ from 'lodash';
 import yaml from 'js-yaml';
+import ini from 'ini';
 
 const parser = (dataToDiff1, dataToDiff2) => {
   const keysFromJsons = Object.keys(dataToDiff1).concat(Object.keys(dataToDiff2));
@@ -30,4 +31,10 @@ export const jsonParser = (file1, file2) => {
   const parseJsonFromFile1 = JSON.parse(fs.readFileSync(file1, 'utf-8'));
   const parseJsonFromFile2 = JSON.parse(fs.readFileSync(file2, 'utf-8'));
   return parser(parseJsonFromFile1, parseJsonFromFile2);
+};
+
+export const iniParser = (file1, file2) => {
+  const parseIniFromFile1 = ini.parse(fs.readFileSync(file1, 'utf-8'));
+  const parseIniFromFile2 = ini.parse(fs.readFileSync(file2, 'utf-8'));
+  return parser(parseIniFromFile1, parseIniFromFile2);
 };
