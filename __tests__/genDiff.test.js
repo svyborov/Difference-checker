@@ -2,19 +2,23 @@ import fs from 'fs';
 import genDiff from '../src';
 
 test('json', () => {
-  const exeptValue1 = genDiff('./__tests__/__fixtures__/json/before.json', './__tests__/__fixtures__/json/after.json');
-  const toBeValue1 = fs.readFileSync('./__tests__/__fixtures__/json/diff.json').toString();
-  expect(exeptValue1).toBe(toBeValue1);
-  const exeptValue2 = genDiff('./__tests__/__fixtures__/json/newBefore.json', './__tests__/__fixtures__/json/newAfter.json');
-  const toBeValue2 = fs.readFileSync('./__tests__/__fixtures__/json/newDiff.json').toString();
-  expect(exeptValue2).toBe(toBeValue2);
+  const pathBeforeJson = './__tests__/__fixtures__/json/before.json';
+  const pathAeforeJson = './__tests__/__fixtures__/json/after.json';
+  const toBeValue = fs.readFileSync('./__tests__/__fixtures__/json/diff.json').toString();
+  expect(genDiff(pathBeforeJson, pathAeforeJson)).toBe(toBeValue);
+  const pathNewBeforeJson = './__tests__/__fixtures__/json/newBefore.json';
+  const pathNewafterJson = './__tests__/__fixtures__/json/newAfter.json';
+  const toBeNewValue = fs.readFileSync('./__tests__/__fixtures__/json/newDiff.json').toString();
+  expect(genDiff(pathNewBeforeJson, pathNewafterJson)).toBe(toBeNewValue);
 });
 
 test('yaml', () => {
-  const exeptValue1 = genDiff('./__tests__/__fixtures__/yaml/before.yaml', './__tests__/__fixtures__/yaml/after.yaml');
-  const toBeValue1 = fs.readFileSync('./__tests__/__fixtures__/yaml/diff.yaml').toString();
-  expect(exeptValue1).toBe(toBeValue1);
-  const exeptValue2 = genDiff('./__tests__/__fixtures__/yaml/newBefore.yaml', './__tests__/__fixtures__/yaml/newAfter.yaml');
-  const toBeValue2 = fs.readFileSync('./__tests__/__fixtures__/yaml/newDiff.yaml').toString();
-  expect(exeptValue2).toBe(toBeValue2);
+  const pathBeforeYaml = './__tests__/__fixtures__/yaml/before.yaml';
+  const pathAeforeYaml = './__tests__/__fixtures__/yaml/after.yaml';
+  const toBeValue = fs.readFileSync('./__tests__/__fixtures__/yaml/diff.yaml').toString();
+  expect(genDiff(pathBeforeYaml, pathAeforeYaml)).toBe(toBeValue);
+  const pathNewBeforeYaml = './__tests__/__fixtures__/yaml/newBefore.yaml';
+  const pathNewafterYaml = './__tests__/__fixtures__/yaml/newAfter.yaml';
+  const toBeNewValue = fs.readFileSync('./__tests__/__fixtures__/yaml/newDiff.yaml').toString();
+  expect(genDiff(pathNewBeforeYaml, pathNewafterYaml)).toBe(toBeNewValue);
 });
