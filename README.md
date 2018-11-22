@@ -11,3 +11,6 @@
 
 # Установка и сравнение yaml файлов
 <a href="https://asciinema.org/a/qCS4BZr5qDzOHCcWsVo982PqY" target="_blank"><img src="https://asciinema.org/a/qCS4BZr5qDzOHCcWsVo982PqY.svg" /></a>
+
+# Установка и сравнение ini файлов
+<a href="https://asciinema.org/a/cj8UF7JiYgfVL11n6y7cKV9iv" target="_blank"><img src="https://asciinema.org/a/cj8UF7JiYgfVL11n6y7cKV9iv.svg" /></a>
