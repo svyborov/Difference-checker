@@ -1,6 +1,15 @@
 import fs from 'fs';
-import genDiff from '../src';
+// import genDiff from '../src';
 
+import { render, pathToData } from '../src';
+
+test('json', () => {
+  const pathBeforeJson = './__tests__/__fixtures__/json/recursionBefore.json';
+  const pathAeforeJson = './__tests__/__fixtures__/json/recursionAfter.json';
+  const toBeValue = fs.readFileSync('./__tests__/__fixtures__/json/recursionDiff.json').toString();
+  expect(render(pathToData(pathBeforeJson, pathAeforeJson))).toBe(toBeValue);
+});
+/*
 test('json', () => {
   const pathBeforeJson = './__tests__/__fixtures__/json/before.json';
   const pathAeforeJson = './__tests__/__fixtures__/json/after.json';
@@ -33,3 +42,4 @@ test('ini', () => {
   const toBeNewValue = fs.readFileSync('./__tests__/__fixtures__/ini/newDiff.ini').toString();
   expect(genDiff(pathNewBeforeIni, pathNewafterIni)).toBe(toBeNewValue);
 });
+*/

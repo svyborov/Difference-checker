@@ -1,3 +1,4 @@
-import genDiff from './genDiff';
+import pathToData from './genDiff';
+import render from './renders';
 
-export default genDiff;
+export { render, pathToData };
