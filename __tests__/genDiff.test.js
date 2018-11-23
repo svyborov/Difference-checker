@@ -1,13 +1,27 @@
 import fs from 'fs';
-// import genDiff from '../src';
 
-import { render, pathToData } from '../src';
+import { render, genDiff } from '../src';
 
 test('json', () => {
   const pathBeforeJson = './__tests__/__fixtures__/json/recursionBefore.json';
   const pathAeforeJson = './__tests__/__fixtures__/json/recursionAfter.json';
   const toBeValue = fs.readFileSync('./__tests__/__fixtures__/json/recursionDiff.json').toString();
-  expect(render(pathToData(pathBeforeJson, pathAeforeJson))).toBe(toBeValue);
+  expect(render(genDiff(pathBeforeJson, pathAeforeJson))).toBe(toBeValue);
+});
+
+test('yaml', () => {
+  const pathBeforeYaml = './__tests__/__fixtures__/yaml/recursionBefore.yaml';
+  const pathAeforeYaml = './__tests__/__fixtures__/yaml/recursionAfter.yaml';
+  const toBeValue = fs.readFileSync('./__tests__/__fixtures__/yaml/recursionDiff.yaml').toString();
+  expect(render(genDiff(pathBeforeYaml, pathAeforeYaml))).toBe(toBeValue);
+});
+
+
+test('ini', () => {
+  const pathBeforeIni = './__tests__/__fixtures__/ini/recursionBefore.ini';
+  const pathAeforeIni = './__tests__/__fixtures__/ini/recursionAfter.ini';
+  const toBeValue = fs.readFileSync('./__tests__/__fixtures__/ini/recursionDiff.ini').toString();
+  expect(render(genDiff(pathBeforeIni, pathAeforeIni))).toBe(toBeValue);
 });
 /*
 test('json', () => {

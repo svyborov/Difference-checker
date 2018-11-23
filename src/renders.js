@@ -1,60 +1,31 @@
 import _ from 'lodash';
 
-const stringify = (value) => {
+const stringify = (value, indent = 1) => {
   if (value instanceof Object) {
-    const valueKeys = _.keys(value);
-    const elementsOfValue = valueKeys.reduce((acc, key) => [...acc, `            ${key}: ${value[key]}`], []);
-    return `{\n${elementsOfValue.join('\n')}\n        }`;
+    const elementsOfValue = _.keys(value).reduce((acc, key) => [...acc, `${' '.repeat(indent + 4)}${key}: ${value[key]}`], []);
+    return ['{', ...elementsOfValue, `${' '.repeat(indent)}}`].join('\n');
   }
   return value;
 };
 
 const propertyActions = {
-  unchanged: (data, f) => {
+  unchanged: (data, indent, f) => {
     if (data.children instanceof Object) {
-      return `    ${data.key}: ${f(data.children)}`;
+      return `${' '.repeat(indent)}${data.key}: ${f(data.children, indent + 4)}`;
     }
-    return `        ${data.key}: ${stringify(data.valueBefore)}`;
+    return `${' '.repeat(indent)}${data.key}: ${stringify(data.valueBefore, indent)}`;
   },
-  changed: data => `      - ${data.key}: ${stringify(data.valueBefore)}\n      + ${data.key}: ${stringify(data.valueAfter)}`,
-  added: data => `      + ${data.key}: ${stringify(data.valueAfter)}`,
-  deleted: data => `      - ${data.key}: ${stringify(data.valueBefore)}`,
+  changed: (data, indent) => [`${' '.repeat(indent - 2)}- ${data.key}: ${stringify(data.valueBefore, indent)}`, `${' '.repeat(indent - 2)}+ ${data.key}: ${stringify(data.valueAfter, indent)}`],
+  added: (data, indent) => `${' '.repeat(indent - 2)}+ ${data.key}: ${stringify(data.valueAfter, indent)}`,
+  deleted: (data, indent) => `${' '.repeat(indent - 2)}- ${data.key}: ${stringify(data.valueBefore, indent)}`,
 };
 
-const rende = (data) => {
+const rende = (data, indent = 4) => {
   const renderedData = data.reduce((acc, value) => {
     const stateValue = value.state;
-    // console.log('ЗНАЧЕНИЕ', value);
-    // console.log('АККУМУЛЯТОР', acc);
-    return [...acc, propertyActions[stateValue](value, rende)];
+    return [...acc, propertyActions[stateValue](value, indent, rende)];
   }, []);
-  return `{\n${renderedData.join('\n')}\n        }`;
+  return _.flatten(['{', ...renderedData, `${' '.repeat(indent - 4)}}`]).join('\n');
 };
 
 export default rende;
-
-
-/*
-const propertyActions = [
-  {
-    name: 'key',
-    check: arg => typeof arg === 'string',
-  },
-  {
-    name: 'children',
-    check: arg => arg instanceof Array,
-  },
-  {
-    name: 'valueBefore',
-    check: arg => arg instanceof Object,
-  },
-  {
-    name: 'valueAfter',
-    check: arg => arg instanceof Object,
-  },
-  {
-    name: 'state',
-    check: arg => arg instanceof Object,
-  },
-];
-*/

@@ -14,3 +14,6 @@
 
 # Установка и сравнение ini файлов
 <a href="https://asciinema.org/a/cj8UF7JiYgfVL11n6y7cKV9iv" target="_blank"><img src="https://asciinema.org/a/cj8UF7JiYgfVL11n6y7cKV9iv.svg" /></a>
+
+# Установка и рекурсивное сравнение файлов
+<a href="https://asciinema.org/a/ijq4Q0LQzZkBAJ9Sy7uGWNYUA" target="_blank"><img src="https://asciinema.org/a/ijq4Q0LQzZkBAJ9Sy7uGWNYUA.svg" /></a>

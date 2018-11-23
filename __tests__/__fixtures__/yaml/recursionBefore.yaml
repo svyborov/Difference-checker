@@ -1,0 +1,12 @@
+timeout: 20
+testAFBF: before
+host: "hexlet.io"
+recursion:
+  regexp: '^http://.*'
+ircEvent: PRIVMSG
+method: randomUri
+verb: true
+regexp:
+  ircEvent:
+    method: randomUri
+    key: value
