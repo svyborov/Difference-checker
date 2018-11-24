@@ -8,7 +8,7 @@ const stringify = (value, indent = 1) => {
   return value;
 };
 
-const propertyActions = {
+const stateActions = {
   unchanged: (data, indent, f) => {
     if (data.children instanceof Object) {
       return `${' '.repeat(indent)}${data.key}: ${f(data.children, indent + 4)}`;
@@ -23,7 +23,7 @@ const propertyActions = {
 const rende = (data, indent = 4) => {
   const renderedData = data.reduce((acc, value) => {
     const stateValue = value.state;
-    return [...acc, propertyActions[stateValue](value, indent, rende)];
+    return [...acc, stateActions[stateValue](value, indent, rende)];
   }, []);
   return _.flatten(['{', ...renderedData, `${' '.repeat(indent - 4)}}`]).join('\n');
 };

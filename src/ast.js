@@ -1,34 +1,26 @@
 import _ from 'lodash';
 
-const makeAST = (beforeDataToDiff, afterDataToDiff) => {
-  const uniqKeys = _.union(Object.keys(beforeDataToDiff), Object.keys(afterDataToDiff));
+const makeAST = (beforeData, afterData) => {
+  const uniqKeys = _.union(Object.keys(beforeData), Object.keys(afterData));
   const result = uniqKeys.reduce((acc, key) => {
-    if (_.has(beforeDataToDiff, key)) {
-      if (_.has(afterDataToDiff, key)) {
-        if (beforeDataToDiff[key] instanceof Object && afterDataToDiff[key] instanceof Object) {
-          return [...acc, { key, state: 'unchanged', children: makeAST(beforeDataToDiff[key], afterDataToDiff[key]) }];
+    if (_.has(beforeData, key)) {
+      if (_.has(afterData, key)) {
+        if (beforeData[key] instanceof Object && afterData[key] instanceof Object) {
+          return [...acc, { key, state: 'unchanged', children: makeAST(beforeData[key], afterData[key]) }];
         }
-        if (beforeDataToDiff[key] === afterDataToDiff[key]) {
-          return [...acc, { key, state: 'unchanged', valueBefore: beforeDataToDiff[key] }];
+        if (beforeData[key] === afterData[key]) {
+          return [...acc, { key, state: 'unchanged', valueBefore: beforeData[key] }];
         }
         return [...acc, {
           key,
-          valueBefore: beforeDataToDiff[key],
-          valueAfter: afterDataToDiff[key],
+          valueBefore: beforeData[key],
+          valueAfter: afterData[key],
           state: 'changed',
         }];
       }
-      return [...acc, {
-        key,
-        valueBefore: beforeDataToDiff[key],
-        state: 'deleted',
-      }];
+      return [...acc, { key, valueBefore: beforeData[key], state: 'deleted' }];
     }
-    return [...acc, {
-      key,
-      valueAfter: afterDataToDiff[key],
-      state: 'added',
-    }];
+    return [...acc, { key, valueAfter: afterData[key], state: 'added' }];
   }, []);
   return result;
 };
