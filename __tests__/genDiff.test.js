@@ -16,7 +16,7 @@ test('diffToPlain', () => {
   expect(genDiff(pathBeforeJson, pathAeforeJson, 'plain')).toBe(expectedPlainOutput);
 });
 
-test('default', () => {
+test('uneven', () => {
   const pathBeforeJson = './__tests__/__fixtures__/json/recursionBefore.json';
   const pathAeforeJson = './__tests__/__fixtures__/json/recursionAfter.json';
   const expectedJsonOutput = fs.readFileSync('./__tests__/__fixtures__/json/recursionDiff.json').toString();

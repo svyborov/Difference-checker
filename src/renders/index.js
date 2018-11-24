@@ -1,9 +1,11 @@
-import rende from './defaultRender';
+import unevenRende from './unevenRender';
 import plainRende from './plainRender';
 import jsonRende from './jsonRender';
 
-export default {
+const renders = {
   plain: plainRende,
-  default: rende,
+  uneven: unevenRende,
   json: jsonRende,
 };
+
+export default (data, format) => renders[format](data);
