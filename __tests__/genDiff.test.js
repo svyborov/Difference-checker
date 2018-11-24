@@ -2,7 +2,14 @@ import fs from 'fs';
 
 import { genDiff } from '../src';
 
-test('plain', () => {
+test('diffToJson', () => {
+  const pathBeforeJson = './__tests__/__fixtures__/json/recursionBefore.json';
+  const pathAeforeJson = './__tests__/__fixtures__/json/recursionAfter.json';
+  const expectedJsonOutput = fs.readFileSync('./__tests__/__fixtures__/json/Exepted.json').toString();
+  expect(genDiff(pathBeforeJson, pathAeforeJson, 'json')).toBe(expectedJsonOutput);
+});
+
+test('diffToPlain', () => {
   const pathBeforeJson = './__tests__/__fixtures__/json/recursionBefore.json';
   const pathAeforeJson = './__tests__/__fixtures__/json/recursionAfter.json';
   const expectedPlainOutput = fs.readFileSync('./__tests__/__fixtures__/json/plainRecursionDiff.json').toString();

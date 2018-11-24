@@ -20,3 +20,6 @@
 
 # Установка и пример указания формата вывода
 <a href="https://asciinema.org/a/OSA7PhJzbJMl9cVweV1I8KILi" target="_blank"><img src="https://asciinema.org/a/OSA7PhJzbJMl9cVweV1I8KILi.svg" /></a>
+
+# Установка и пример вывода в формате json
+<a href="https://asciinema.org/a/P9gNnohUjlIxGIsduO4ajFO3l" target="_blank"><img src="https://asciinema.org/a/P9gNnohUjlIxGIsduO4ajFO3l.svg" /></a>

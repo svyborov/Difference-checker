@@ -1,6 +1,6 @@
 {
   "name": "gendiff_vsa123",
-  "version": "0.0.44",
+  "version": "0.1.0",
   "description": "The package allows you to compare 2 files.",
   "main": "dist/bin/gendiff.js",
   "bin": {
