@@ -17,3 +17,6 @@
 
 # Установка и рекурсивное сравнение файлов
 <a href="https://asciinema.org/a/ijq4Q0LQzZkBAJ9Sy7uGWNYUA" target="_blank"><img src="https://asciinema.org/a/ijq4Q0LQzZkBAJ9Sy7uGWNYUA.svg" /></a>
+
+# Установка и пример указания формата вывода
+<a href="https://asciinema.org/a/OSA7PhJzbJMl9cVweV1I8KILi" target="_blank"><img src="https://asciinema.org/a/OSA7PhJzbJMl9cVweV1I8KILi.svg" /></a>

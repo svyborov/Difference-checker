@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 import gendiff from 'commander';
-import { genDiff, render } from '..';
-// const gendiff = require('commander');
+import { genDiff } from '..';
 
 gendiff
-  .version('0.0.32')
+  .version('0.0.44')
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'Output format')
-  .arguments('[json1path] [json2path]')
-  .action((...args) => (console.log(render(genDiff(...args)))))
+  .arguments('[pathBefore] [pathAfter]')
+  .action((pathBefore, pathAfter) => console.log(genDiff(pathBefore, pathAfter, gendiff.format)))
   .parse(process.argv);
