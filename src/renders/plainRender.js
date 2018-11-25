@@ -3,9 +3,9 @@ import _ from 'lodash';
 const stringify = value => (_.isObject(value) ? '[complex value]' : value);
 const typeActions = {
   unchanged: () => '',
-  nested: (data, indent, f) => `${f(data.children, (`${data.key}.`))}`,
-  changed: (data, parent) => `${parent}${data.key} was updated. From ${stringify(data.valueBefore)} to ${stringify(data.valueAfter)}`,
-  added: (data, parent) => `${parent}${data.key} was added with value: ${stringify(data.valueAfter)}`,
+  nested: (data, indent, f) => `${f(data.value, (`${data.key}.`))}`,
+  changed: (data, parent) => `${parent}${data.key} was updated. From ${stringify(data.value.valueBefore)} to ${stringify(data.value.valueAfter)}`,
+  added: (data, parent) => `${parent}${data.key} was added with value: ${stringify(data.value)}`,
   deleted: (data, parent) => `${parent}${data.key} was removed`,
 };
 

@@ -10,12 +10,12 @@ const stringify = (value, indent) => {
 };
 
 const typeActions = {
-  unchanged: (data, indent) => `${' '.repeat(indent)}${data.key}: ${stringify(data.valueBefore, indent)}`,
-  nested: (data, indent, f) => `${' '.repeat(indent)}${data.key}: ${f(data.children, indent + 4)}`,
-  changed: (data, indent) => [`${' '.repeat(indent - 2)}- ${data.key}: ${stringify(data.valueBefore, indent)}`,
-    `${' '.repeat(indent - 2)}+ ${data.key}: ${stringify(data.valueAfter, indent)}`],
-  added: (data, indent) => `${' '.repeat(indent - 2)}+ ${data.key}: ${stringify(data.valueAfter, indent)}`,
-  deleted: (data, indent) => `${' '.repeat(indent - 2)}- ${data.key}: ${stringify(data.valueBefore, indent)}`,
+  unchanged: (data, indent) => `${' '.repeat(indent)}${data.key}: ${stringify(data.value, indent)}`,
+  nested: (data, indent, f) => `${' '.repeat(indent)}${data.key}: ${f(data.value, indent + 4)}`,
+  changed: (data, indent) => [`${' '.repeat(indent - 2)}- ${data.key}: ${stringify(data.value.valueBefore, indent)}`,
+    `${' '.repeat(indent - 2)}+ ${data.key}: ${stringify(data.value.valueAfter, indent)}`],
+  added: (data, indent) => `${' '.repeat(indent - 2)}+ ${data.key}: ${stringify(data.value, indent)}`,
+  deleted: (data, indent) => `${' '.repeat(indent - 2)}- ${data.key}: ${stringify(data.value, indent)}`,
 };
 
 const unevenRende = (data, indent = 4) => {

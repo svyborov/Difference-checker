@@ -1,27 +1,42 @@
 import _ from 'lodash';
 
-const makeAST = (beforeData, afterData) => {
-  const uniqKeys = _.union(Object.keys(beforeData), Object.keys(afterData));
-  const result = uniqKeys.reduce((acc, key) => {
-    if (_.has(beforeData, key)) {
-      if (_.has(afterData, key)) {
-        if (beforeData[key] instanceof Object && afterData[key] instanceof Object) {
-          return [...acc, { key, type: 'nested', children: makeAST(beforeData[key], afterData[key]) }];
-        }
-        if (beforeData[key] === afterData[key]) {
-          return [...acc, { key, type: 'unchanged', valueBefore: beforeData[key] }];
-        }
-        return [...acc, {
-          key,
-          valueBefore: beforeData[key],
-          valueAfter: afterData[key],
-          type: 'changed',
-        }];
-      }
-      return [...acc, { key, valueBefore: beforeData[key], type: 'deleted' }];
-    }
-    return [...acc, { key, valueAfter: afterData[key], type: 'added' }];
-  }, []);
+const keyTypes = [{
+  type: 'nested',
+  check: (dataBefore, dataAfter, key) => (dataBefore[key] instanceof Object
+    && dataAfter[key] instanceof Object),
+  process: (dataBefore, dataAfter, f) => f(dataBefore, dataAfter),
+},
+{
+  type: 'unchanged',
+  check: (dataBefore, dataAfter, key) => (_.has(dataBefore, key) && _.has(dataAfter, key))
+  && (dataBefore[key] === dataAfter[key]),
+  process: valueBefore => valueBefore,
+},
+{
+  type: 'changed',
+  check: (dataBefore, dataAfter, key) => (_.has(dataBefore, key) && _.has(dataAfter, key))
+  && (dataBefore[key] !== dataAfter[key]),
+  process: (valueBefore, valueAfter) => ({ valueBefore, valueAfter }),
+},
+{
+  type: 'deleted',
+  check: (dataBefore, dataAfter, key) => (_.has(dataBefore, key) && !_.has(dataAfter, key)),
+  process: valueBefore => valueBefore,
+},
+{
+  type: 'added',
+  check: (dataBefore, dataAfter, key) => (!_.has(dataBefore, key) && _.has(dataAfter, key)),
+  process: (valueBefore, valueAfter) => valueAfter,
+},
+];
+
+const makeAST = (dataBefore = {}, dataAfter = {}) => {
+  const uniqKeys = _.union(Object.keys(dataBefore), Object.keys(dataAfter));
+  const result = uniqKeys.map((key) => {
+    const { type, process } = _.find(keyTypes, item => item.check(dataBefore, dataAfter, key));
+    const value = process(dataBefore[key], dataAfter[key], makeAST);
+    return { type, value, key };
+  });
   return result;
 };
 
