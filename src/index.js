@@ -1,5 +1,5 @@
 import genDiff from './genDiff';
-import renders from './renders';
+import render from './renderers';
 import makeAST from './ast';
 
-export { renders, genDiff, makeAST };
+export { render, genDiff, makeAST };

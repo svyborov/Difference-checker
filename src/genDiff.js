@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import parse from './parsers';
 import makeAST from './ast';
-import rende from './renders';
+import render from './renderers';
 
 const genDiff = (pathToBeforeFile, pathToAfterFile, format = 'uneven') => {
   const extnameFile = path.extname(pathToBeforeFile);
@@ -11,7 +11,7 @@ const genDiff = (pathToBeforeFile, pathToAfterFile, format = 'uneven') => {
   const parsedData1 = parse(dataToParse1, extnameFile);
   const parsedData2 = parse(dataToParse2, extnameFile);
   const ast = makeAST(parsedData1, parsedData2);
-  return rende(ast, format);
+  return render(ast, format);
 };
 
 export default genDiff;
