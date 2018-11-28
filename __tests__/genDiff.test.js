@@ -6,25 +6,22 @@ const jsonDir = './__tests__/__fixtures__/json';
 const yamlDir = './__tests__/__fixtures__/yaml';
 const iniDir = './__tests__/__fixtures__/ini';
 
+const recursionBefore = `${jsonDir}/recursionBefore.json`;
+const recursionAfter = `${jsonDir}/recursionAfter.json`;
+
 test('diffToJson', () => {
-  const pathBeforeJson = `${jsonDir}/recursionBefore.json`;
-  const pathAeforeJson = `${jsonDir}/recursionAfter.json`;
   const expectedJsonOutput = fs.readFileSync(`${jsonDir}/Exepted.json`).toString();
-  expect(genDiff(pathBeforeJson, pathAeforeJson, 'json')).toBe(expectedJsonOutput);
+  expect(genDiff(recursionBefore, recursionAfter, 'json')).toBe(expectedJsonOutput);
 });
 
 test('diffToPlain', () => {
-  const pathBeforeJson = `${jsonDir}/recursionBefore.json`;
-  const pathAeforeJson = `${jsonDir}/recursionAfter.json`;
   const expectedPlainOutput = fs.readFileSync(`${jsonDir}/plainRecursionDiff.json`).toString();
-  expect(genDiff(pathBeforeJson, pathAeforeJson, 'plain')).toBe(expectedPlainOutput);
+  expect(genDiff(recursionBefore, recursionAfter, 'plain')).toBe(expectedPlainOutput);
 });
 
 test('uneven', () => {
-  const pathBeforeJson = `${jsonDir}/recursionBefore.json`;
-  const pathAeforeJson = `${jsonDir}/recursionAfter.json`;
   const expectedJsonOutput = fs.readFileSync(`${jsonDir}/recursionDiff.json`).toString();
-  expect(genDiff(pathBeforeJson, pathAeforeJson)).toBe(expectedJsonOutput);
+  expect(genDiff(recursionBefore, recursionAfter)).toBe(expectedJsonOutput);
 });
 
 test('yaml', () => {
