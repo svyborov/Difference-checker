@@ -31,7 +31,7 @@ const keyTypes = [{
 ];
 
 const makeAST = (dataBefore = {}, dataAfter = {}) => {
-  const uniqKeys = _.union(Object.keys(dataBefore), Object.keys(dataAfter));
+  const uniqKeys = Object.keys({ ...dataBefore, ...dataAfter });
   const result = uniqKeys.map((key) => {
     const { type, process } = _.find(keyTypes, item => item.check(dataBefore, dataAfter, key));
     const values = process(dataBefore[key], dataAfter[key], makeAST);
